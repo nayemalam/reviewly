@@ -1,5 +1,11 @@
 import { Review } from 'src/types'
 
+// should have this in a context, retrieved from the backend, but for the sake of simplicity
+export const currentUser = {
+  name: 'Nayem Alam',
+  role: 'admin',
+}
+
 export const reviews: Review[] = [
   {
     id: '5d707203b65083001e956f0a',

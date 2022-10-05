@@ -2,7 +2,7 @@ import { MoreHoriz, Reply } from '@mui/icons-material'
 import { IconButton, Rating, TextField, Tooltip } from '@mui/material'
 import { useEffect, useState } from 'react'
 import Moment from 'react-moment'
-import { reviews } from 'src/constants'
+import { currentUser, reviews } from 'src/constants'
 
 type Props = {
   id: string
@@ -12,6 +12,10 @@ export const Details = ({ id }: Props) => {
   const [item, setItem] = useState(null)
   const [response, setResponse] = useState('')
   const [confirmedResponse, setConfirmedResponse] = useState('')
+
+  const handleResponseChange = (e) => {
+    setResponse(e.target.value)
+  }
 
   const handleConfirm = () => {
     const newReviews = reviews.map((review) => {
@@ -25,7 +29,10 @@ export const Details = ({ id }: Props) => {
       return review
     })
 
-    setConfirmedResponse(newReviews.find((review) => review.id === id).response)
+    let reply = newReviews.find((review) => review.id === id).response
+
+    setConfirmedResponse(reply)
+    localStorage.setItem(`response-${id}`, reply)
     setResponse('')
   }
 
@@ -35,16 +42,18 @@ export const Details = ({ id }: Props) => {
   }
 
   const handleCancel = () => {
-    setResponse('')
-    setConfirmedResponse('')
+    setConfirmedResponse(localStorage.getItem(`response-${id}`))
   }
 
   useEffect(() => {
     const review = reviews.find((item) => item.id === id)
     setItem(review)
-  }, [id])
 
-  console.log(confirmedResponse)
+    const reply = localStorage.getItem(`response-${id}`)
+    if (reply) {
+      setConfirmedResponse(reply)
+    }
+  }, [id])
 
   if (item) {
     return (
@@ -81,10 +90,24 @@ export const Details = ({ id }: Props) => {
               rows={4}
               fullWidth
               value={response}
-              onChange={(e) => setResponse(e.target.value)}
+              onChange={handleResponseChange}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handleConfirm()
+                }
+              }}
             />
 
             <div className="flex justify-end mt-4">
+              <button
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded
+                disabled:opacity-50 mr-2"
+                type="button"
+                onClick={handleCancel}
+                disabled={response.length === 0}
+              >
+                Cancel
+              </button>
               <button
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded
                 disabled:opacity-50"
@@ -105,7 +128,7 @@ export const Details = ({ id }: Props) => {
                   {confirmedResponse}
                 </p>
                 <div className="flex items-center mt-4">
-                  <span className="text-sm font-bold">Nayem Alam</span>
+                  <span className="text-sm font-bold">{currentUser.name}</span>
                   <span className="text-xs text-gray-500 pl-8">
                     <Moment format="MM/DD/YYYY">
                       {new Date().toISOString()}

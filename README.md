@@ -9,18 +9,18 @@
 
 ## Context
 
-From a `reviews.json` with the object structure like below: 
+From a `reviews.json` file with the object structure like below: 
   
-  ```javascript
+  ```typescript
   {
     "reviews": [
       {
-        id: '5d707203b65083001e956f0a',
-        author: 'Weeks Duran',
-        place: 'Big Johns Burgers',
-        published_at: 'Thu Jun 27 1974 11:46:39 GMT-0500 (Central Daylight Time)',
-        rating: 5,
-        content: 'Great!',
+        id: string,
+        author: string,
+        place: string,
+        published_at: string,
+        rating: number,
+        content: string,
       },
     ]
   }
@@ -61,6 +61,11 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - UI and logic implemented (values stored in Local Storage)
 - Some other nice features implemented: 
   - responsive design
+  - clear all comments with  prompt
+    - this will clear only all responses, not the entire local storage
+  - back button for convenience
+  - press "Enter" to submit a comment
+  - can cancel and edit the comment
 - Built with Next.js, React, Redux + Redux Toolkit, styled with SASS, Tailwind CSS and Material UI.
 
 ## Learn More

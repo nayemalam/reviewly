@@ -1,3 +1,4 @@
+import { QuestionAnswer } from '@mui/icons-material'
 import { Rating } from '@mui/material'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -9,6 +10,15 @@ type Props = {}
 
 const Home = (props: Props) => {
   const [sanitizedReviews, setSanitizedReviews] = useState<Review[]>(reviews)
+
+  const hasComment = (id: string) => {
+    if (typeof window !== 'undefined') {
+      const reply = localStorage.getItem(`response-${id}`)
+      return reply !== null
+    }
+
+    return false
+  }
 
   return (
     <div className="pb-12">
@@ -38,6 +48,9 @@ const Home = (props: Props) => {
                   <span className="text-xs text-gray-500">
                     <Moment format="MM/DD/YYYY">{item.published_at}</Moment>
                   </span>
+                  {hasComment(item.id) && (
+                    <QuestionAnswer color="primary" fontSize="small" />
+                  )}
                 </div>
               </div>
             </a>

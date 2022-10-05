@@ -7,11 +7,7 @@ const Reviews = (props: Props) => {
   const router = useRouter()
   const { id } = router.query
 
-  return (
-    <div>
-      <Details id={id as string} />
-    </div>
-  )
+  return <Details id={id as string} />
 }
 
 export default Reviews
