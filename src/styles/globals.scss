@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// prettier-ignore
+@import 
+// theme
+'./utilities/_mixins',
+'./utilities/variables',
+'./utilities/overrides',
+'./themes/layout',
+// components
+
+// main page components
+'./pages/home',
+'./pages/404';
