@@ -11,7 +11,7 @@
 
 From a `reviews.json` with the object structure like below: 
   
-  ```json
+  ```javascript
   {
     "reviews": [
       {
