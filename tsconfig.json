@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -18,15 +14,11 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "outDir": "out",
-    "rootDir": "src",
     "sourceMap": true,
     "noImplicitAny": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "typeRoots": [
-      "node_modules/@types",
-      "src/custom-types"
-    ],
+    "typeRoots": ["node_modules/@types", "src/custom-types"],
     "baseUrl": ".",
     "incremental": true
   },
@@ -34,9 +26,9 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "./src/**/*"
+    "./src/**/*",
+    "../e2e**/*.ts",
+    "../__tests__/**/*.{tsx,jsx}"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

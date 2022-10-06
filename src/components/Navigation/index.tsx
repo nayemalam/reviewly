@@ -65,6 +65,7 @@ export const Navigation = (props: Props) => {
             sx={{
               paddingLeft: router.pathname.includes('reviews') ? 0 : 2.85,
             }}
+            id="navigation-title"
           >
             Reviewly
           </Typography>
