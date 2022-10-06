@@ -5,6 +5,7 @@
 - [Context](#context)
 - [Getting Started](#getting-started)
 - [Note](#note)
+- [Some other things to consider (but out of scope)](#some-other-things-to-consider-but-out-of-scope)
 - [Learn More](#learn-more)
 
 ## Context
@@ -64,15 +65,14 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - UI and logic implemented (values stored in Local Storage)
 - Some other nice features implemented: 
   - responsive design
+  - typescript
   - clear all comments with  prompt
     - this will clear only all responses, not the entire local storage
   - back button for convenience
   - press "Enter" to submit a comment
   - can cancel and edit the comment
   - can remove a comment
-  - deployed with CI
-  - filter reviews by rating
-  - filter reviews by 
+  - deployed with CI (every push to `master` will automatically deploy to deployed URL)
 - Built with Next.js, React, Redux + Redux Toolkit, styled with SASS, Tailwind CSS and Material UI.
 
 ## Some other things to consider (but out of scope):
@@ -83,8 +83,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - justification on why I used the above 3 together:
    - SASS: for any overrides, as well as local theme + custom css
    - Tailwind: out of box utility classes (displaying flex, text size, etc)
-   - Premade components (i.e. Button, Tooltip, Popper, etc)
-- could have added an option to upload a reviews.json file, since it was given in a file format - decided to do this because realistically you're not uploading reviews, rather fetching them
+   - MUI: Premade components (i.e. Button, Tooltip, Popper, etc)
+- could have added an option to upload a `reviews.json` file, since it was given in a file format - decided to do this because realistically you're not uploading reviews, rather fetching them
 - could have created several filter functions that manipulate local reviews state
 - current user admin is hardcoded but this can be easily fetched from auth login and have an AuthContext surrounding the entire app - out of scope
 
