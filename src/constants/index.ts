@@ -2,7 +2,7 @@ import { Review } from 'src/types'
 
 // should have this in a context, retrieved from the backend, but for the sake of simplicity
 export const currentUser = {
-  name: 'Nayem Alam',
+  name: 'John Doe',
   role: 'admin',
 }
 
