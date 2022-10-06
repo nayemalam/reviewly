@@ -1,4 +1,4 @@
-import { MoreHoriz, Reply } from '@mui/icons-material'
+import { Delete, MoreHoriz, Reply } from '@mui/icons-material'
 import { IconButton, Rating, TextField, Tooltip } from '@mui/material'
 import { useEffect, useState } from 'react'
 import Moment from 'react-moment'
@@ -13,7 +13,7 @@ export const Details = ({ id }: Props) => {
   const [typing, setTyping] = useState('')
   const [response, setResponse] = useState('')
 
-  const handletypingChange = (
+  const handleTypingChange = (
     event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
     setTyping(event.target.value)
@@ -40,6 +40,12 @@ export const Details = ({ id }: Props) => {
     } else {
       setTyping('')
     }
+  }
+
+  const handleRemove = () => {
+    localStorage.removeItem(`response-${id}`)
+    setResponse('')
+    setTyping('')
   }
 
   useEffect(() => {
@@ -87,7 +93,7 @@ export const Details = ({ id }: Props) => {
               rows={4}
               fullWidth
               value={typing}
-              onChange={handletypingChange}
+              onChange={handleTypingChange}
               onKeyDown={(e) => {
                 if (
                   e.key === 'Enter' &&
@@ -140,6 +146,16 @@ export const Details = ({ id }: Props) => {
               <Tooltip title="Edit">
                 <IconButton onClick={handleEdit}>
                   <MoreHoriz color="primary" />
+                </IconButton>
+              </Tooltip>
+
+              <Tooltip title="Remove">
+                <IconButton onClick={handleRemove}>
+                  <Delete
+                    sx={{
+                      color: '#e64926',
+                    }}
+                  />
                 </IconButton>
               </Tooltip>
             </div>

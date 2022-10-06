@@ -69,6 +69,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
   - back button for convenience
   - press "Enter" to submit a comment
   - can cancel and edit the comment
+  - can remove a comment
   - deployed with CI
   - filter reviews by rating
   - filter reviews by 
