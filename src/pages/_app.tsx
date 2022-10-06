@@ -1,6 +1,5 @@
 import React, { ReactElement, ReactNode } from 'react'
 import { Provider as StoreProvider } from 'react-redux'
-import 'react-toastify/dist/ReactToastify.css'
 import Layout from 'src/components/Layout'
 import store from 'src/redux/store'
 import '../styles/globals.scss'
