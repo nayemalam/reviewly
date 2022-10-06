@@ -1,17 +1,16 @@
 import { QuestionAnswer } from '@mui/icons-material'
 import { Rating } from '@mui/material'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Moment from 'react-moment'
 import { reviews } from 'src/constants'
-import { Review } from 'src/types'
 
 type Props = {}
 
 const Home = (props: Props) => {
-  const [sanitizedReviews, setSanitizedReviews] = useState<Review[]>(reviews)
+  const [isMounted, setIsMounted] = useState(false)
 
-  const hasComment = (id: string) => {
+  const hasResponse = (id: string) => {
     if (typeof window !== 'undefined') {
       const reply = localStorage.getItem(`response-${id}`)
       return reply !== null
@@ -19,6 +18,10 @@ const Home = (props: Props) => {
 
     return false
   }
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   return (
     <div className="pb-12">
@@ -30,7 +33,7 @@ const Home = (props: Props) => {
           <Link href={`/reviews/${item.id}`} key={`${item.id}-${index}`}>
             <a className="relative block border border-gray-100 mx-6 shadow-sm rounded-md h-60 transform transition duration-200 hover:scale-105">
               <div className="p-6">
-                <h5 className="mt-4 text-lg font-bold">{item.place}</h5>
+                <h5 className="text-lg font-bold">{item.place}</h5>
                 <Rating
                   readOnly
                   name="rating"
@@ -39,7 +42,7 @@ const Home = (props: Props) => {
                   className="mt-2"
                 />
                 <p className="mt-2 text-sm text-gray-700">
-                  {item.content.slice(0, 100).concat('...')}
+                  {item.content.slice(0, 80).concat('...')}
                 </p>
               </div>
               <div className="col-span-4 flex justify-between items-center border-t border-gray-100 px-6 py-4 bg-gray-200 absolute bottom-0 w-full">
@@ -48,8 +51,10 @@ const Home = (props: Props) => {
                   <span className="text-xs text-gray-500">
                     <Moment format="MM/DD/YYYY">{item.published_at}</Moment>
                   </span>
-                  {hasComment(item.id) && (
-                    <QuestionAnswer color="primary" fontSize="small" />
+                  {hasResponse(item.id) && isMounted && (
+                    <>
+                      <QuestionAnswer color="primary" fontSize="small" />
+                    </>
                   )}
                 </div>
               </div>

@@ -19,14 +19,16 @@ export const Navigation = (props: Props) => {
   const [anchorEl, setAnchorEl] = useState(null)
   const [open, setOpen] = useState(false)
 
-  const handleClick = (event) => {
+  const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     setAnchorEl(event.currentTarget)
     setOpen((prev) => !prev)
   }
 
   const handleClear = () => {
     if (
-      confirm('Are you sure you want to clear all your replies to customes?')
+      confirm(
+        'Are you sure you want to clear all your replies to your customers?'
+      )
     ) {
       if (typeof window !== 'undefined') {
         let responseItems = Object.keys(localStorage).filter((item) =>

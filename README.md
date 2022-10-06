@@ -37,6 +37,8 @@ From a `reviews.json` file with the object structure like below:
   - A response can be edited
   - A response should be shown with the rest of the review details
 
+Deployed version available at: 
+
 ## Getting Started
 
 - Clone this repo: `https://github.com/nayemalam/reviewly.git`
@@ -57,6 +59,7 @@ yarn dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Note
+- Tested on Chrome Version 105.0.5195.125 (Official Build)
 - Architecture implemented with proper file structuring
 - UI and logic implemented (values stored in Local Storage)
 - Some other nice features implemented: 
@@ -66,6 +69,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
   - back button for convenience
   - press "Enter" to submit a comment
   - can cancel and edit the comment
+  - deployed with CI
+  - filter reviews by rating
+  - filter reviews by 
 - Built with Next.js, React, Redux + Redux Toolkit, styled with SASS, Tailwind CSS and Material UI.
 
 ## Learn More

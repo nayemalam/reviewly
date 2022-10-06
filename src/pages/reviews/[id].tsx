@@ -1,9 +1,7 @@
 import { useRouter } from 'next/router'
 import { Details } from 'src/components/Details'
 
-type Props = {}
-
-const Reviews = (props: Props) => {
+const Reviews = () => {
   const router = useRouter()
   const { id } = router.query
 

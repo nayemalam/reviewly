@@ -10,39 +10,36 @@ type Props = {
 
 export const Details = ({ id }: Props) => {
   const [item, setItem] = useState(null)
+  const [typing, setTyping] = useState('')
   const [response, setResponse] = useState('')
-  const [confirmedResponse, setConfirmedResponse] = useState('')
 
-  const handleResponseChange = (e) => {
-    setResponse(e.target.value)
+  const handletypingChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    setTyping(event.target.value)
   }
 
   const handleConfirm = () => {
-    const newReviews = reviews.map((review) => {
-      if (review.id === id) {
-        return {
-          ...review,
-          response,
-        }
-      }
-
-      return review
-    })
-
-    let reply = newReviews.find((review) => review.id === id).response
-
-    setConfirmedResponse(reply)
-    localStorage.setItem(`response-${id}`, reply)
-    setResponse('')
+    if (typing.trim().length > 0) {
+      setResponse(typing.replace(/\s+/g, ' '))
+      localStorage.setItem(`response-${id}`, typing.replace(/\s+/g, ' '))
+      setTyping('')
+    }
   }
 
   const handleEdit = () => {
-    setResponse(confirmedResponse)
-    setConfirmedResponse('')
+    setTyping(response)
+    setResponse('')
   }
 
   const handleCancel = () => {
-    setConfirmedResponse(localStorage.getItem(`response-${id}`))
+    const responseExistsInLocalStorage = localStorage.getItem(`response-${id}`)
+    if (responseExistsInLocalStorage) {
+      setResponse(responseExistsInLocalStorage)
+      setTyping(responseExistsInLocalStorage)
+    } else {
+      setTyping('')
+    }
   }
 
   useEffect(() => {
@@ -51,7 +48,7 @@ export const Details = ({ id }: Props) => {
 
     const reply = localStorage.getItem(`response-${id}`)
     if (reply) {
-      setConfirmedResponse(reply)
+      setResponse(reply)
     }
   }, [id])
 
@@ -59,7 +56,7 @@ export const Details = ({ id }: Props) => {
     return (
       <div className="pb-12">
         <div className="grid grid-cols-1 gap-8">
-          <div className="relative block border border-gray-100 mx-6 shadow-sm rounded-md h-60">
+          <div className="block border border-gray-100 mx-6 shadow-sm rounded-md">
             <div className="p-6">
               <h5 className="mt-4 text-lg font-bold">{item.place}</h5>
               <Rating
@@ -71,7 +68,7 @@ export const Details = ({ id }: Props) => {
               />
               <p className="mt-2 text-sm text-gray-700">{item.content}</p>
             </div>
-            <div className="col-span-4 flex justify-between items-center border-t border-gray-100 px-6 py-4 bg-gray-200 absolute bottom-0 w-full">
+            <div className="col-span-4 flex justify-between items-center border-t border-gray-100 px-6 py-4 bg-gray-200 w-full">
               <div className="flex flex-row justify-between items-center w-full">
                 <span className="text-sm font-bold">{item.author}</span>
                 <span className="text-xs text-gray-500">
@@ -81,7 +78,7 @@ export const Details = ({ id }: Props) => {
             </div>
           </div>
         </div>
-        {confirmedResponse.length === 0 ? (
+        {response.length === 0 ? (
           <div className="mt-8 mx-8">
             <TextField
               label={`Reply to ${item.author}`}
@@ -89,13 +86,18 @@ export const Details = ({ id }: Props) => {
               multiline
               rows={4}
               fullWidth
-              value={response}
-              onChange={handleResponseChange}
+              value={typing}
+              onChange={handletypingChange}
               onKeyDown={(e) => {
-                if (e.key === 'Enter') {
+                if (
+                  e.key === 'Enter' &&
+                  e.shiftKey &&
+                  typing.trim().length > 0
+                ) {
                   handleConfirm()
                 }
               }}
+              helperText="Press Shift + Enter to reply"
             />
 
             <div className="flex justify-end mt-4">
@@ -104,7 +106,7 @@ export const Details = ({ id }: Props) => {
                 disabled:opacity-50 mr-2"
                 type="button"
                 onClick={handleCancel}
-                disabled={response.length === 0}
+                disabled={typing.length === 0}
               >
                 Cancel
               </button>
@@ -112,7 +114,7 @@ export const Details = ({ id }: Props) => {
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded
                 disabled:opacity-50"
                 onClick={handleConfirm}
-                disabled={response.length === 0}
+                disabled={typing.trim().length === 0}
               >
                 Reply
               </button>
@@ -124,9 +126,7 @@ export const Details = ({ id }: Props) => {
               <Reply color="primary" />
 
               <div className="flex-1 ml-12">
-                <p className="mt-2 text-sm text-gray-700">
-                  {confirmedResponse}
-                </p>
+                <p className="mt-2 text-sm text-gray-700">{response}</p>
                 <div className="flex items-center mt-4">
                   <span className="text-sm font-bold">{currentUser.name}</span>
                   <span className="text-xs text-gray-500 pl-8">
@@ -149,5 +149,9 @@ export const Details = ({ id }: Props) => {
     )
   }
 
-  return null
+  return (
+    <div className="flex justify-center items-center h-full">
+      <h1 className="text-md">Review for id {id} does not exist</h1>
+    </div>
+  )
 }
