@@ -6,3 +6,5 @@ export type Review = {
   rating: number
   content: string
 }
+
+export type LoadingStatus = 'idle' | 'loading' | 'succeeded' | 'failed'

@@ -1,7 +1,10 @@
 import { Home } from '@mui/icons-material'
 import { Button } from '@mui/material'
+import { useRouter } from 'next/router'
 
 const Error404 = () => {
+  const router = useRouter()
+
   return (
     <div className="error-404">
       <div>
@@ -15,7 +18,7 @@ const Error404 = () => {
           className="action-btn"
           variant="outlined"
           onClick={() => {
-            window.location.href = '/'
+            router.push('/')
           }}
           startIcon={<Home />}
         >
