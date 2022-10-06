@@ -68,7 +68,7 @@ const Home = (props: Props) => {
 
   return (
     <div className="pb-12">
-      <div className="flex flex-col justify-center pb-12 items-center">
+      <div className="flex flex-col justify-center pb-8 items-center">
         <div className="flex space-x-4 m-auto">
           <ToggleButtonGroup
             color="primary"
@@ -88,7 +88,7 @@ const Home = (props: Props) => {
             <ToggleButton value="unanswered">Unanswered</ToggleButton>
           </ToggleButtonGroup>
         </div>
-        <div className="text-center text-sm text-gray-500">
+        <div className="text-center text-sm text-gray-500 pt-2">
           {isMounted && renderTotalNumberOfReviews()}
         </div>
       </div>
