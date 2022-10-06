@@ -37,7 +37,7 @@ From a `reviews.json` file with the object structure like below:
   - A response can be edited
   - A response should be shown with the rest of the review details
 
-Deployed version available at: 
+Deployed version available at: https://reviewly-response.netlify.app
 
 ## Getting Started
 
@@ -74,6 +74,19 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
   - filter reviews by rating
   - filter reviews by 
 - Built with Next.js, React, Redux + Redux Toolkit, styled with SASS, Tailwind CSS and Material UI.
+
+## Some other things to consider (but out of scope):
+- instead of saving responses in local storage, should actually save them in db (via POST or graphql query)
+- currently do not have a fetching state but that's expected since it retrieves from localStorage
+- it is a bit overkill to add redux global state management in the current app as it is since it is unnecessary (however, it's nicely implemented for whenever we do require a global store, it will be there)
+- don't need all of Tailwind + SASS + MUI, could have just built this app with only one preprocessor/component library
+- justification on why I used the above 3 together:
+   - SASS: for any overrides, as well as local theme + custom css
+   - Tailwind: out of box utility classes (displaying flex, text size, etc)
+   - Premade components (i.e. Button, Tooltip, Popper, etc)
+- could have added an option to upload a reviews.json file, since it was given in a file format - decided to do this because realistically you're not uploading reviews, rather fetching them
+- could have created several filter functions that manipulate local reviews state
+- current user admin is hardcoded but this can be easily fetched from auth login and have an AuthContext surrounding the entire app - out of scope
 
 ## Learn More
 
