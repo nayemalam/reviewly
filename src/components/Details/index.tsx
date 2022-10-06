@@ -43,9 +43,11 @@ export const Details = ({ id }: Props) => {
   }
 
   const handleRemove = () => {
-    localStorage.removeItem(`response-${id}`)
-    setResponse('')
-    setTyping('')
+    if (confirm('Are you sure you want to delete this review?')) {
+      localStorage.removeItem(`response-${id}`)
+      setResponse('')
+      setTyping('')
+    }
   }
 
   useEffect(() => {
@@ -78,7 +80,9 @@ export const Details = ({ id }: Props) => {
               <div className="flex flex-row justify-between items-center w-full">
                 <span className="text-sm font-bold">{item.author}</span>
                 <span className="text-xs text-gray-500">
-                  <Moment format="MM/DD/YYYY">{item.published_at}</Moment>
+                  <Moment format="MMM D, YYYY h:mm A">
+                    {item.published_at}
+                  </Moment>
                 </span>
               </div>
             </div>
